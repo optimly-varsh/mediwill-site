@@ -7,11 +7,10 @@ export default function Navbar() {
   const [expanded, setExpanded] = useState(false);
   const [active, setActive] = useState("");
   const [isMobile, setIsMobile] = useState(false);
-
   const navRef = useRef(null);
 
   // --------------------------------------------------
-  // Detect mobile screen
+  // Detect mobile
   // --------------------------------------------------
 
   useEffect(() => {
@@ -67,10 +66,7 @@ export default function Navbar() {
     handleScroll();
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -84,8 +80,7 @@ export default function Navbar() {
     const handleMouseMove = (e) => {
       if (!navRef.current) return;
 
-      const rect =
-        navRef.current.getBoundingClientRect();
+      const rect = navRef.current.getBoundingClientRect();
 
       const buffer = 80;
 
@@ -98,10 +93,7 @@ export default function Navbar() {
       setExpanded(isNear);
     };
 
-    window.addEventListener(
-      "mousemove",
-      handleMouseMove
-    );
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener(
@@ -112,7 +104,7 @@ export default function Navbar() {
   }, [isMobile]);
 
   // --------------------------------------------------
-  // Close mobile navigation when switching to desktop
+  // Close mobile navigation when switching desktop
   // --------------------------------------------------
 
   useEffect(() => {
@@ -145,24 +137,18 @@ export default function Navbar() {
   };
 
   // --------------------------------------------------
-  // Logo click
-  //
-  // Desktop:
-  //   Logo always goes home.
-  //
-  // Mobile:
-  //   Tap logo while already on homepage = expand/collapse.
-  //   Tap logo from another page = go home.
+  // Logo behavior
   // --------------------------------------------------
 
   const handleLogoClick = (e) => {
-    const currentPath =
-      window.location.pathname;
+    const currentPath = window.location.pathname;
 
     const isHomePage =
       currentPath === "/" ||
       currentPath === "";
 
+    // Mobile homepage:
+    // logo toggles navigation
     if (isMobile && isHomePage) {
       e.preventDefault();
 
@@ -171,11 +157,12 @@ export default function Navbar() {
       return;
     }
 
-    // Otherwise allow the <a href="/"> to navigate home.
+    // Desktop or another page:
+    // normal href="/" behavior
   };
 
   // --------------------------------------------------
-  // Close mobile navigation after navigation
+  // Mobile navigation link
   // --------------------------------------------------
 
   const handleMobileLinkClick = () => {
@@ -227,7 +214,7 @@ export default function Navbar() {
         {expanded && (
           <div className="links">
             {/* ======================================
-                TOP OF HOMEPAGE
+                TOP / MAIN NAVIGATION
             ====================================== */}
 
             {!scrolled ? (
@@ -268,10 +255,6 @@ export default function Navbar() {
                 </a>
               </>
             ) : (
-              /* ====================================
-                 SCROLLED / THERAPEUTIC NAVIGATION
-              ==================================== */
-
               <>
                 <a
                   href="/#cardiac"
@@ -333,6 +316,11 @@ export default function Navbar() {
       ============================================ */}
 
       <style jsx>{`
+
+        /* ==========================================
+           NAV
+        ========================================== */
+
         .nav {
           position: fixed;
           top: 20px;
@@ -344,20 +332,31 @@ export default function Navbar() {
           pointer-events: none;
         }
 
+        /* ==========================================
+           NAV INNER — DESKTOP
+        ========================================== */
+
         .nav-inner {
           display: flex;
           align-items: center;
           gap: 20px;
+
           padding: 12px 18px;
+
           border-radius: 999px;
+
           background: rgba(255, 255, 255, 0.03);
+
           backdrop-filter: blur(14px);
           -webkit-backdrop-filter: blur(14px);
+
           border: 1px solid
             rgba(255, 255, 255, 0.08);
+
           transition:
             all 0.35s ease,
             box-shadow 0.5s ease;
+
           pointer-events: auto;
         }
 
@@ -367,24 +366,29 @@ export default function Navbar() {
         }
 
         /* ==========================================
-           LOGO LINK
+           LOGO
         ========================================== */
 
         .logo-link {
           display: flex;
           align-items: center;
           justify-content: center;
+
           text-decoration: none;
+
           flex-shrink: 0;
         }
 
         .logo {
           height: 34px;
           width: auto;
+
           display: block;
+
           filter: drop-shadow(
             0 0 12px rgba(255, 100, 100, 0.4)
           );
+
           transition:
             transform 0.3s ease,
             filter 0.3s ease;
@@ -395,13 +399,84 @@ export default function Navbar() {
         }
 
         /* ==========================================
+           LINKS
+        ========================================== */
+
+        .links {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          gap: 24px;
+
+          white-space: nowrap;
+        }
+
+        .links a {
+          color: rgba(255, 255, 255, 0.82);
+
+          text-decoration: none;
+
+          font-size: 13px;
+          font-weight: 500;
+          letter-spacing: 0.02em;
+
+          transition:
+            color 0.25s ease,
+            opacity 0.25s ease,
+            transform 0.25s ease;
+        }
+
+        .links a:hover {
+          color: #ffffff;
+          transform: translateY(-1px);
+        }
+
+        /* ==========================================
+           ACTIVE INDICATOR
+        ========================================== */
+
+        .indicator {
+          position: absolute;
+
+          top: calc(100% + 8px);
+
+          left: 50%;
+
+          transform: translateX(-50%);
+
+          padding: 4px 10px;
+
+          border-radius: 999px;
+
+          color: rgba(255, 255, 255, 0.72);
+
+          border: 1px solid
+            rgba(255, 255, 255, 0.08);
+
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+
+          font-size: 8px;
+          font-weight: 600;
+
+          letter-spacing: 0.16em;
+
+          white-space: nowrap;
+
+          pointer-events: none;
+        }
+
+        /* ==========================================
            DESKTOP
         ========================================== */
 
         @media (min-width: 769px) {
+
           .logo-link {
             cursor: pointer;
           }
+
         }
 
         /* ==========================================
@@ -409,86 +484,165 @@ export default function Navbar() {
         ========================================== */
 
         @media (max-width: 768px) {
-          .logo-link {
-            cursor: pointer;
-          }
 
           .nav {
-            top: 14px;
-          }
+            top: 12px;
+            padding: 0 12px;
 
-          .nav-inner {
-            max-width: calc(100vw - 32px);
             box-sizing: border-box;
           }
 
-          .links {
+          /* ----------------------------------------
+             COLLAPSED MOBILE
+          ---------------------------------------- */
+
+          .nav-inner {
+            width: auto;
+            max-width: calc(100vw - 24px);
+
+            box-sizing: border-box;
+
+            padding: 10px 14px;
+
+            gap: 0;
+
+            border-radius: 22px;
+
+            transition:
+              width 0.3s ease,
+              padding 0.3s ease,
+              gap 0.3s ease,
+              box-shadow 0.5s ease;
+          }
+
+          /* ----------------------------------------
+             EXPANDED MOBILE
+          ---------------------------------------- */
+
+          .nav-inner.expanded {
+            width: min(340px, calc(100vw - 24px));
+
+            padding: 10px 12px 12px;
+
+            gap: 9px;
+
+            border-radius: 22px;
+
+            flex-direction: column;
+
+            align-items: stretch;
+          }
+
+          /* ----------------------------------------
+             MOBILE LOGO
+          ---------------------------------------- */
+
+          .logo-link {
+            width: 100%;
+
+            height: 34px;
+
             display: flex;
-            flex-wrap: wrap;
+
+            align-items: center;
             justify-content: center;
-            gap: 6px;
+
+            cursor: pointer;
+          }
+
+          .logo {
+            height: 30px;
+
+            max-width: 145px;
+
+            object-fit: contain;
+          }
+
+          /* ----------------------------------------
+             MOBILE LINKS
+          ---------------------------------------- */
+
+          .links {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+              repeat(3, minmax(0, 1fr));
+
+            align-items: center;
+
+            justify-items: center;
+
+            column-gap: 4px;
+            row-gap: 7px;
+
+            white-space: normal;
           }
 
           .links a {
-            font-size: 13px;
-            padding: 6px 8px;
+            width: 100%;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            line-height: 1.2;
+
+            padding: 3px 2px;
+
+            color: rgba(255, 255, 255, 0.82);
+          }
+
+          .links a:hover {
+            transform: none;
+          }
+
+          /* ----------------------------------------
+             MOBILE ACTIVE INDICATOR
+          ---------------------------------------- */
+
+          .indicator {
+            top: calc(100% + 6px);
+
+            font-size: 7px;
+
+            padding: 3px 8px;
+
+            letter-spacing: 0.13em;
+          }
+        }
+
+        /* ==========================================
+           VERY SMALL PHONES
+        ========================================== */
+
+        @media (max-width: 380px) {
+
+          .nav {
+            padding: 0 8px;
+          }
+
+          .nav-inner {
+            max-width: calc(100vw - 16px);
           }
 
           .nav-inner.expanded {
-            padding: 12px 16px;
-            gap: 12px;
+            width: calc(100vw - 16px);
+
+            padding-left: 9px;
+            padding-right: 9px;
+          }
+
+          .links a {
+            font-size: 10px;
+          }
+
+          .logo {
+            height: 28px;
           }
         }
 
-        /* ==========================================
-           LINKS
-        ========================================== */
-
-        .links {
-          display: flex;
-          gap: 16px;
-          transition: all 0.3s ease;
-        }
-
-        .links a {
-          color: #cbd5f5;
-          font-size: 14px;
-          text-decoration: none;
-          padding: 6px 10px;
-          border-radius: 999px;
-          transition:
-            color 0.25s ease,
-            background 0.25s ease,
-            transform 0.25s ease;
-        }
-
-        .links a:hover {
-          color: white;
-          background: rgba(
-            255,
-            255,
-            255,
-            0.08
-          );
-          transform: translateY(-1px);
-        }
-
-        /* ==========================================
-           ACTIVE DIVISION INDICATOR
-        ========================================== */
-
-        .indicator {
-          position: absolute;
-          bottom: -18px;
-          padding: 4px 12px;
-          border-radius: 999px;
-          font-size: 11px;
-          color: white;
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          letter-spacing: 1px;
-          pointer-events: none;
-        }
       `}</style>
     </div>
   );

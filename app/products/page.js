@@ -224,8 +224,7 @@ export default function ProductsPage() {
             maxWidth: 760,
             marginTop: 24,
             marginBottom: 48,
-            fontSize:
-              "clamp(16px, 1.6vw, 20px)",
+            fontSize: "clamp(16px, 1.6vw, 20px)",
             lineHeight: 1.65,
             opacity: 0.68,
           }}
@@ -239,6 +238,7 @@ export default function ProductsPage() {
         {/* SEARCH + CATALOGUE DOWNLOAD */}
 
         <div
+          className="catalogue-controls"
           style={{
             display: "grid",
             gridTemplateColumns:
@@ -288,6 +288,7 @@ export default function ProductsPage() {
           {/* DOWNLOAD CATALOGUE */}
 
           <a
+            className="catalogue-download"
             href="/Mediwill-Life-Sciences-Final-Product-Catalogue.pdf"
             download
             style={{
@@ -309,9 +310,9 @@ export default function ProductsPage() {
               letterSpacing: "0.01em",
               boxShadow:
                 "0 0 28px rgba(229,72,93,0.10)",
-              transition:
-                "all 0.3s ease",
+              transition: "all 0.3s ease",
               whiteSpace: "nowrap",
+              boxSizing: "border-box",
             }}
             onMouseEnter={(event) => {
               event.currentTarget.style.border =
@@ -358,6 +359,7 @@ export default function ProductsPage() {
         {/* PRODUCT COUNT */}
 
         <div
+          className="catalogue-count"
           style={{
             display: "flex",
             justifyContent: "flex-end",
@@ -652,6 +654,7 @@ export default function ProductsPage() {
                           {/* PRODUCT FAMILY GRID */}
 
                           <div
+                            className="product-family-grid"
                             style={{
                               display: "grid",
                               gridTemplateColumns:
@@ -711,6 +714,9 @@ export default function ProductsPage() {
                                         `0 0 60px ${softGlow}`,
                                       transition:
                                         "all 0.35s ease",
+                                      boxSizing:
+                                        "border-box",
+                                      minWidth: 0,
                                     }}
                                     onMouseEnter={(
                                       event
@@ -838,6 +844,10 @@ export default function ProductsPage() {
                                                 "1px solid rgba(255,255,255,0.06)",
                                               transition:
                                                 "all 0.25s ease",
+                                              minWidth:
+                                                0,
+                                              boxSizing:
+                                                "border-box",
                                             }}
                                             onMouseEnter={(
                                               event
@@ -869,6 +879,8 @@ export default function ProductsPage() {
                                                 justifyContent:
                                                   "space-between",
                                                 gap: 16,
+                                                minWidth:
+                                                  0,
                                               }}
                                             >
                                               <span
@@ -880,6 +892,10 @@ export default function ProductsPage() {
                                                     1.4,
                                                   color:
                                                     "#f5f2ef",
+                                                  minWidth:
+                                                    0,
+                                                  overflowWrap:
+                                                    "anywhere",
                                                 }}
                                               >
                                                 {
@@ -1014,6 +1030,55 @@ export default function ProductsPage() {
           </span>
         </div>
       </section>
+
+      {/* =====================================================
+          MOBILE RESPONSIVE FIXES
+          Desktop layout remains unchanged.
+      ===================================================== */}
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .catalogue-controls {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+            width: 100%;
+          }
+
+          .catalogue-controls input {
+            width: 100% !important;
+            min-width: 0 !important;
+          }
+
+          .catalogue-download {
+            width: 100% !important;
+            min-width: 0 !important;
+            min-height: 52px;
+            box-sizing: border-box;
+          }
+
+          .catalogue-count {
+            justify-content: center !important;
+            margin-bottom: 22px !important;
+          }
+
+          .product-family-grid {
+            grid-template-columns: minmax(0, 1fr) !important;
+            width: 100%;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .catalogue-controls {
+            gap: 10px !important;
+          }
+
+          .catalogue-download {
+            font-size: 12px !important;
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }
