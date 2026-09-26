@@ -87,11 +87,79 @@ const ArrowIcon = () => (
   </svg>
 );
 
+const InstagramIcon = () => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="3"
+      y="3"
+      width="18"
+      height="18"
+      rx="5"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    />
+    <circle
+      cx="12"
+      cy="12"
+      r="4"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    />
+    <circle cx="17.3" cy="6.8" r="1" fill="currentColor" />
+  </svg>
+);
+
+const LinkedInIcon = () => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="3"
+      y="3"
+      width="18"
+      height="18"
+      rx="2"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    />
+    <path
+      d="M7 10v7"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+    />
+    <circle cx="7" cy="7.2" r="1" fill="currentColor" />
+    <path
+      d="M11 17v-4.2c0-1.5.8-2.8 2.5-2.8s2.5 1.2 2.5 2.8V17"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+    />
+    <path
+      d="M11 12v5"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    inquiryType: "General Enquiry",
     message: "",
   });
 
@@ -126,6 +194,7 @@ export default function ContactPage() {
         name: "",
         email: "",
         phone: "",
+        inquiryType: "General Enquiry",
         message: "",
       });
 
@@ -138,6 +207,26 @@ export default function ContactPage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "16px 18px",
+    background: "rgba(255,255,255,0.05)",
+    border: "1px solid rgba(255,255,255,0.1)",
+    borderRadius: "16px",
+    color: "#fff",
+    fontSize: "16px",
+    outline: "none",
+    transition: "all 0.3s ease",
+  };
+
+  const focusInput = (e) => {
+    e.target.style.borderColor = "#7850ff";
+  };
+
+  const blurInput = (e) => {
+    e.target.style.borderColor = "rgba(255,255,255,0.1)";
   };
 
   return (
@@ -228,8 +317,7 @@ export default function ContactPage() {
           style={{
             padding: "40px 8% 100px",
             display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fit, minmax(380px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))",
             gap: "60px",
           }}
         >
@@ -274,24 +362,9 @@ export default function ContactPage() {
                       name: e.target.value,
                     })
                   }
-                  style={{
-                    width: "100%",
-                    padding: "16px 18px",
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    borderRadius: "16px",
-                    color: "#fff",
-                    fontSize: "16px",
-                    outline: "none",
-                    transition: "all 0.3s ease",
-                  }}
-                  onFocus={(e) =>
-                    (e.target.style.borderColor = "#7850ff")
-                  }
-                  onBlur={(e) =>
-                    (e.target.style.borderColor =
-                      "rgba(255,255,255,0.1)")
-                  }
+                  style={inputStyle}
+                  onFocus={focusInput}
+                  onBlur={blurInput}
                 />
               </div>
 
@@ -308,24 +381,9 @@ export default function ContactPage() {
                       email: e.target.value,
                     })
                   }
-                  style={{
-                    width: "100%",
-                    padding: "16px 18px",
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    borderRadius: "16px",
-                    color: "#fff",
-                    fontSize: "16px",
-                    outline: "none",
-                    transition: "all 0.3s ease",
-                  }}
-                  onFocus={(e) =>
-                    (e.target.style.borderColor = "#7850ff")
-                  }
-                  onBlur={(e) =>
-                    (e.target.style.borderColor =
-                      "rgba(255,255,255,0.1)")
-                  }
+                  style={inputStyle}
+                  onFocus={focusInput}
+                  onBlur={blurInput}
                 />
               </div>
 
@@ -341,25 +399,116 @@ export default function ContactPage() {
                       phone: e.target.value,
                     })
                   }
-                  style={{
-                    width: "100%",
-                    padding: "16px 18px",
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    borderRadius: "16px",
-                    color: "#fff",
-                    fontSize: "16px",
-                    outline: "none",
-                    transition: "all 0.3s ease",
-                  }}
-                  onFocus={(e) =>
-                    (e.target.style.borderColor = "#7850ff")
-                  }
-                  onBlur={(e) =>
-                    (e.target.style.borderColor =
-                      "rgba(255,255,255,0.1)")
-                  }
+                  style={inputStyle}
+                  onFocus={focusInput}
+                  onBlur={blurInput}
                 />
+              </div>
+
+              {/* Inquiry Type */}
+              <div style={{ marginBottom: "20px" }}>
+                <select
+                  required
+                  value={formData.inquiryType}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      inquiryType: e.target.value,
+                    })
+                  }
+                  style={{
+                    ...inputStyle,
+                    appearance: "none",
+                    WebkitAppearance: "none",
+                    cursor: "pointer",
+                    color:
+                      formData.inquiryType === ""
+                        ? "#6b7280"
+                        : "#fff",
+                  }}
+                  onFocus={focusInput}
+                  onBlur={blurInput}
+                >
+                  <option
+                    value="General Enquiry"
+                    style={{
+                      background: "#111",
+                      color: "#fff",
+                    }}
+                  >
+                    General Enquiry
+                  </option>
+
+                  <option
+                    value="Product Enquiry"
+                    style={{
+                      background: "#111",
+                      color: "#fff",
+                    }}
+                  >
+                    Product Enquiry
+                  </option>
+
+                  <option
+                    value="Export / International Business"
+                    style={{
+                      background: "#111",
+                      color: "#fff",
+                    }}
+                  >
+                    Export / International Business
+                  </option>
+
+                  <option
+                    value="Partnership"
+                    style={{
+                      background: "#111",
+                      color: "#fff",
+                    }}
+                  >
+                    Partnership
+                  </option>
+
+                  <option
+                    value="Career"
+                    style={{
+                      background: "#111",
+                      color: "#fff",
+                    }}
+                  >
+                    Career
+                  </option>
+
+                  <option
+                    value="Other"
+                    style={{
+                      background: "#111",
+                      color: "#fff",
+                    }}
+                  >
+                    Other
+                  </option>
+                </select>
+
+                <div
+                  style={{
+                    position: "relative",
+                    pointerEvents: "none",
+                    marginTop: "-32px",
+                    marginRight: "18px",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <span
+                    style={{
+                      color: "#7850ff",
+                      fontSize: "18px",
+                    }}
+                  >
+                    ↓
+                  </span>
+                </div>
               </div>
 
               {/* Message */}
@@ -388,13 +537,8 @@ export default function ContactPage() {
                     resize: "vertical",
                     transition: "all 0.3s ease",
                   }}
-                  onFocus={(e) =>
-                    (e.target.style.borderColor = "#7850ff")
-                  }
-                  onBlur={(e) =>
-                    (e.target.style.borderColor =
-                      "rgba(255,255,255,0.1)")
-                  }
+                  onFocus={focusInput}
+                  onBlur={blurInput}
                 />
               </div>
 
@@ -413,9 +557,7 @@ export default function ContactPage() {
                   color: "#fff",
                   fontSize: "16px",
                   fontWeight: "500",
-                  cursor: isSubmitting
-                    ? "not-allowed"
-                    : "pointer",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
                   transition: "all 0.3s ease",
                   opacity: isSubmitting ? 0.7 : 1,
                 }}
@@ -556,6 +698,56 @@ export default function ContactPage() {
               </div>
             </div>
 
+            {/* Export Email */}
+            <div
+              style={{
+                marginBottom: "40px",
+                display: "flex",
+                gap: "16px",
+                alignItems: "flex-start",
+              }}
+            >
+              <div style={{ width: "28px", flexShrink: 0 }}>
+                <EmailIcon />
+              </div>
+
+              <div>
+                <h3
+                  style={{
+                    fontSize: "16px",
+                    marginBottom: "8px",
+                    color: "#fff",
+                    fontWeight: "500",
+                  }}
+                >
+                  Export Enquiries
+                </h3>
+
+                <p style={{ color: "#9ca3af", fontSize: "14px" }}>
+                  <a
+                    href="mailto:exports@mediwill.in"
+                    style={{
+                      color: "#7850ff",
+                      textDecoration: "none",
+                    }}
+                  >
+                    exports@mediwill.in
+                  </a>
+                </p>
+
+                <p
+                  style={{
+                    fontSize: "12px",
+                    color: "#6b7280",
+                    marginTop: "4px",
+                    lineHeight: "1.5",
+                  }}
+                >
+                  International business & export enquiries
+                </p>
+              </div>
+            </div>
+
             {/* Phone */}
             <div
               style={{
@@ -636,6 +828,102 @@ export default function ContactPage() {
               </div>
             </div>
 
+            {/* Social */}
+            <div
+              style={{
+                marginBottom: "40px",
+                paddingTop: "30px",
+                borderTop: "1px solid rgba(255,255,255,0.05)",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "16px",
+                  marginBottom: "16px",
+                  color: "#fff",
+                  fontWeight: "500",
+                }}
+              >
+                Connect With Mediwill
+              </h3>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  flexWrap: "wrap",
+                }}
+              >
+                <a
+                  href="https://www.instagram.com/mediwilllife/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "10px 14px",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: "999px",
+                    color: "#9ca3af",
+                    textDecoration: "none",
+                    fontSize: "13px",
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "#fff";
+                    e.currentTarget.style.borderColor =
+                      "rgba(120,80,255,0.5)";
+                    e.currentTarget.style.background =
+                      "rgba(120,80,255,0.08)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "#9ca3af";
+                    e.currentTarget.style.borderColor =
+                      "rgba(255,255,255,0.08)";
+                    e.currentTarget.style.background = "transparent";
+                  }}
+                >
+                  <InstagramIcon />
+                  Instagram
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/company/mediwill-life-science/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "10px 14px",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: "999px",
+                    color: "#9ca3af",
+                    textDecoration: "none",
+                    fontSize: "13px",
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "#fff";
+                    e.currentTarget.style.borderColor =
+                      "rgba(120,80,255,0.5)";
+                    e.currentTarget.style.background =
+                      "rgba(120,80,255,0.08)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "#9ca3af";
+                    e.currentTarget.style.borderColor =
+                      "rgba(255,255,255,0.08)";
+                    e.currentTarget.style.background = "transparent";
+                  }}
+                >
+                  <LinkedInIcon />
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+
             {/* Google Maps Link */}
             <div
               style={{
@@ -680,6 +968,18 @@ export default function ContactPage() {
           }
           100% {
             background-position: 0% 50%;
+          }
+        }
+
+        @media (max-width: 700px) {
+          h1 {
+            font-size: 46px !important;
+          }
+        }
+
+        @media (max-width: 500px) {
+          section {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { products, therapeuticAreas } from "@/data/products";
 
 const divisionColors = {
@@ -46,8 +47,21 @@ function getDivisionSoftGlow(area) {
 }
 
 export default function ProductsPage() {
+  const searchParams = useSearchParams();
+  const familyFromUrl = searchParams.get("family");
+
   const [activeArea, setActiveArea] = useState("All");
   const [query, setQuery] = useState("");
+
+  // Family selected from a division page, e.g.
+  // /products?family=TELWILL
+  const [selectedFamily, setSelectedFamily] = useState(
+    familyFromUrl || ""
+  );
+
+  useEffect(() => {
+    setSelectedFamily(familyFromUrl || "");
+  }, [familyFromUrl]);
 
   const activeColor =
     activeArea === "All"
@@ -67,6 +81,16 @@ export default function ProductsPage() {
         activeArea === "All" ||
         product.areas?.includes(activeArea);
 
+      // Support both the current family structure and
+      // the existing catalogue structure.
+      const familyName =
+        product.family || product.name || "";
+
+      const matchesFamily =
+        !selectedFamily ||
+        familyName.toLowerCase() ===
+          selectedFamily.toLowerCase();
+
       const variantText = (product.variantDetails || [])
         .flatMap((variant) => [
           variant.name,
@@ -78,6 +102,7 @@ export default function ProductsPage() {
 
       const searchableText = [
         product.name,
+        product.family,
         product.composition,
         product.category,
         ...(product.areas || []),
@@ -90,10 +115,11 @@ export default function ProductsPage() {
 
       return (
         matchesArea &&
+        matchesFamily &&
         (!term || searchableText.includes(term))
       );
     });
-  }, [activeArea, query]);
+  }, [activeArea, query, selectedFamily]);
 
   const groupedProducts = useMemo(() => {
     const groups = {};
@@ -437,6 +463,76 @@ export default function ProductsPage() {
             );
           })}
         </div>
+
+        {/* FAMILY SELECTION INDICATOR */}
+
+        {selectedFamily && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 20,
+              marginBottom: 42,
+              padding: "18px 22px",
+              borderRadius: 18,
+              border:
+                "1px solid rgba(229,72,93,0.25)",
+              background:
+                "rgba(229,72,93,0.055)",
+              boxShadow:
+                "0 0 35px rgba(229,72,93,0.08)",
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  fontSize: 10,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "#E5485D",
+                  marginBottom: 5,
+                }}
+              >
+                Selected Product Family
+              </div>
+
+              <div
+                style={{
+                  fontSize: 22,
+                  fontWeight: 500,
+                }}
+              >
+                {selectedFamily}
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedFamily("");
+                window.history.replaceState(
+                  {},
+                  "",
+                  "/products"
+                );
+              }}
+              style={{
+                border:
+                  "1px solid rgba(255,255,255,0.12)",
+                background:
+                  "rgba(255,255,255,0.04)",
+                color: "#fff",
+                borderRadius: 999,
+                padding: "9px 15px",
+                cursor: "pointer",
+                fontSize: 12,
+              }}
+            >
+              View All
+            </button>
+          </div>
+        )}
 
         {/* EMPTY STATE */}
 
@@ -1033,7 +1129,6 @@ export default function ProductsPage() {
 
       {/* =====================================================
           MOBILE RESPONSIVE FIXES
-          Desktop layout remains unchanged.
       ===================================================== */}
 
       <style jsx>{`
@@ -1062,7 +1157,8 @@ export default function ProductsPage() {
           }
 
           .product-family-grid {
-            grid-template-columns: minmax(0, 1fr) !important;
+            grid-template-columns:
+              minmax(0, 1fr) !important;
             width: 100%;
           }
         }

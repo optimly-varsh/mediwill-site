@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Mediwill Life Sciences | Pharmaceutical Company in India",
@@ -22,9 +23,7 @@ export const metadata = {
     },
   ],
 
-  metadataBase: new URL(
-    "https://www.mediwill.in"
-  ),
+  metadataBase: new URL("https://www.mediwill.in"),
 
   alternates: {
     canonical: "https://www.mediwill.in",
@@ -76,6 +75,8 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         {children}
+
+        <Footer />
       </body>
     </html>
   );

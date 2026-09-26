@@ -24,7 +24,7 @@ export default function OrthopedicSection() {
         }}
       />
 
-      {/* AMBIENT BLUE GLOW (BACKGROUND) */}
+      {/* AMBIENT BLUE GLOW */}
       <div
         style={{
           position: "absolute",
@@ -40,7 +40,7 @@ export default function OrthopedicSection() {
         }}
       />
 
-      {/* CORE JOINT GLOW (FOCUS POINT) */}
+      {/* CORE JOINT GLOW */}
       <div
         style={{
           position: "absolute",
@@ -56,7 +56,7 @@ export default function OrthopedicSection() {
         }}
       />
 
-      {/* SUBTLE SCAN RING (VERY LIGHT) */}
+      {/* SUBTLE SCAN RING */}
       <motion.div
         animate={{
           scale: [0.9, 1.1],
@@ -80,7 +80,7 @@ export default function OrthopedicSection() {
         }}
       />
 
-      {/* KNEE IMAGE (PROPER EMBED — NO BOX) */}
+      {/* KNEE IMAGE */}
       <img
         src="/knee.png"
         alt="Orthopedic"
@@ -93,11 +93,9 @@ export default function OrthopedicSection() {
           objectFit: "contain",
           zIndex: 3,
 
-          // 🔥 blending
           mixBlendMode: "screen",
           filter: "brightness(1.15) contrast(1.2)",
 
-          // 🔥 edge fade (IMPORTANT)
           WebkitMaskImage:
             "linear-gradient(to left, black 60%, transparent 100%)",
           maskImage:
@@ -160,7 +158,8 @@ export default function OrthopedicSection() {
         </motion.p>
 
         {/* BUTTON */}
-        <motion.button
+        <motion.a
+          href="/orthopedic"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -171,6 +170,7 @@ export default function OrthopedicSection() {
           }}
           whileTap={{ scale: 0.96 }}
           style={{
+            display: "inline-block",
             marginTop: "30px",
             padding: "14px 30px",
             borderRadius: "999px",
@@ -179,10 +179,11 @@ export default function OrthopedicSection() {
             color: "#fff",
             backdropFilter: "blur(20px)",
             cursor: "pointer",
+            textDecoration: "none",
           }}
         >
-          Explore Orthopedic Range
-        </motion.button>
+          Explore Orthopedic Range →
+        </motion.a>
       </div>
     </section>
   );

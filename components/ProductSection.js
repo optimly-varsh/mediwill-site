@@ -1,5 +1,3 @@
-// components/ProductSection.js
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -58,10 +56,7 @@ export default function ProductSection({
         overflow: "hidden",
       }}
     >
-      {/* ==========================================
-          AMBIENT GLOW
-      ========================================== */}
-
+      {/* AMBIENT GLOW */}
       <div
         className="section-glow"
         style={{
@@ -82,10 +77,7 @@ export default function ProductSection({
         }}
       />
 
-      {/* ==========================================
-          THERAPEUTIC IMAGE
-      ========================================== */}
-
+      {/* THERAPEUTIC IMAGE */}
       <img
         className="section-image"
         src={t.image}
@@ -109,10 +101,7 @@ export default function ProductSection({
         }}
       />
 
-      {/* ==========================================
-          LEFT SIDE FADE
-      ========================================== */}
-
+      {/* LEFT SIDE FADE */}
       <div
         className="section-fade"
         style={{
@@ -125,10 +114,7 @@ export default function ProductSection({
         }}
       />
 
-      {/* ==========================================
-          CONTENT
-      ========================================== */}
-
+      {/* CONTENT */}
       <div
         className="section-content"
         style={{
@@ -138,7 +124,6 @@ export default function ProductSection({
         }}
       >
         {/* HEADING */}
-
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -158,7 +143,6 @@ export default function ProductSection({
         </motion.h2>
 
         {/* SUBTITLE */}
-
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -177,7 +161,6 @@ export default function ProductSection({
         </motion.p>
 
         {/* BUTTON */}
-
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -206,7 +189,11 @@ export default function ProductSection({
           }}
           onClick={() => {
             if (id === "ortho") {
-              window.location.href = "/ortho";
+              window.location.href = "/orthopedic";
+            } else if (id === "infective") {
+              window.location.href = "/anti-infective";
+            } else if (id === "gyneco") {
+              window.location.href = "/gynecology";
             } else {
               document
                 .getElementById("contact")
@@ -217,20 +204,18 @@ export default function ProductSection({
           }}
         >
           {id === "ortho"
-            ? "Learn About Research Molecule →"
+            ? "Explore Orthopedic Range →"
+            : id === "infective"
+            ? "Explore Anti-Infective Range →"
+            : id === "gyneco"
+            ? "Explore Gynecology Range →"
             : `Explore ${title} →`}
         </motion.button>
       </div>
 
-      {/* ==========================================
-          MOBILE RESPONSIVE
-      ========================================== */}
-
+      {/* RESPONSIVE */}
       <style jsx>{`
-        /* ========================================
-           TABLET
-        ======================================== */
-
+        /* TABLET */
         @media (max-width: 900px) and (min-width: 769px) {
           .product-section {
             padding-left: 7%;
@@ -252,47 +237,30 @@ export default function ProductSection({
           }
         }
 
-        /* ========================================
-           MOBILE
-        ======================================== */
-
+        /* MOBILE */
         @media (max-width: 768px) {
           .product-section {
             min-height: 100svh !important;
             height: auto !important;
-
-            padding:
-              120px 24px 70px !important;
-
+            padding: 120px 24px 70px !important;
             display: flex !important;
             align-items: flex-start !important;
             justify-content: center !important;
-
             box-sizing: border-box;
           }
 
-          /* --------------------------------------
-             IMAGE
-          -------------------------------------- */
-
           .section-image {
             height: auto !important;
-
             width: 78% !important;
             max-width: 390px !important;
-
             right: -7% !important;
             top: auto !important;
             bottom: 4% !important;
-
             transform: none !important;
-
             opacity: 0.42;
-
             filter:
               brightness(0.82)
               contrast(1.12) !important;
-
             z-index: 2 !important;
 
             -webkit-mask-image:
@@ -314,28 +282,16 @@ export default function ProductSection({
               ) !important;
           }
 
-          /* --------------------------------------
-             GLOW
-          -------------------------------------- */
-
           .section-glow {
             width: 280px !important;
             height: 280px !important;
-
             right: -10% !important;
             top: auto !important;
             bottom: 8% !important;
-
             transform: none !important;
-
             filter: blur(80px) !important;
-
             opacity: 0.65;
           }
-
-          /* --------------------------------------
-             DARK OVERLAY
-          -------------------------------------- */
 
           .section-fade {
             background:
@@ -349,103 +305,69 @@ export default function ProductSection({
             z-index: 3 !important;
           }
 
-          /* --------------------------------------
-             CONTENT
-          -------------------------------------- */
-
           .section-content {
             width: 100% !important;
             max-width: 100% !important;
-
             position: relative !important;
-
             z-index: 10 !important;
           }
 
           .section-content h2 {
             font-size:
               clamp(38px, 10.5vw, 52px) !important;
-
             line-height: 1.02 !important;
-
-            letter-spacing:
-              -0.035em !important;
-
-            margin:
-              0 0 18px !important;
-
+            letter-spacing: -0.035em !important;
+            margin: 0 0 18px !important;
             max-width: 100% !important;
-
             overflow-wrap: normal !important;
             word-break: normal !important;
           }
 
           .section-content p {
             font-size: 16px !important;
-
             line-height: 1.55 !important;
-
-            margin:
-              0 0 24px !important;
-
+            margin: 0 0 24px !important;
             max-width: 330px !important;
           }
 
           .section-content button {
             width: auto !important;
             max-width: 100% !important;
-
             min-height: 48px;
-
-            padding:
-              13px 22px !important;
-
+            padding: 13px 22px !important;
             font-size: 14px !important;
-
             white-space: normal !important;
-
             line-height: 1.35 !important;
           }
         }
 
-        /* ========================================
-           SMALL PHONES
-        ======================================== */
-
+        /* SMALL PHONES */
         @media (max-width: 420px) {
           .product-section {
-            padding:
-              108px 20px 60px !important;
+            padding: 108px 20px 60px !important;
           }
 
           .section-image {
             width: 82% !important;
-
             right: -12% !important;
-
             bottom: 3% !important;
-
             opacity: 0.34;
           }
 
           .section-content h2 {
             font-size:
               clamp(34px, 10vw, 44px) !important;
-
             line-height: 1.04 !important;
           }
 
           .section-content p {
             font-size: 15px !important;
-
             max-width: 300px !important;
           }
 
           .section-content button {
             font-size: 13px !important;
-
-            padding:
-              12px 18px !important;
+            padding: 12px 18px !important;
           }
         }
       `}</style>

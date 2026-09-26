@@ -80,7 +80,7 @@ export default function AntiInfectiveSection() {
         }}
       />
 
-      {/* SHIELD IMAGE (EMBEDDED) */}
+      {/* SHIELD IMAGE */}
       <img
         src="/shield.png"
         alt="Anti Infective"
@@ -93,11 +93,9 @@ export default function AntiInfectiveSection() {
           objectFit: "contain",
           zIndex: 3,
 
-          // BLENDING
           mixBlendMode: "screen",
           filter: "brightness(1.15) contrast(1.2)",
 
-          // EDGE FADE
           WebkitMaskImage:
             "linear-gradient(to left, black 60%, transparent 100%)",
           maskImage:
@@ -160,7 +158,8 @@ export default function AntiInfectiveSection() {
         </motion.p>
 
         {/* BUTTON */}
-        <motion.button
+        <motion.a
+          href="/anti-infective"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -171,6 +170,7 @@ export default function AntiInfectiveSection() {
           }}
           whileTap={{ scale: 0.96 }}
           style={{
+            display: "inline-block",
             marginTop: "30px",
             padding: "14px 30px",
             borderRadius: "999px",
@@ -179,10 +179,11 @@ export default function AntiInfectiveSection() {
             color: "#fff",
             backdropFilter: "blur(20px)",
             cursor: "pointer",
+            textDecoration: "none",
           }}
         >
-          Explore Anti-Infective Range
-        </motion.button>
+          Explore Anti-Infective Range →
+        </motion.a>
       </div>
     </section>
   );
