@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { products, therapeuticAreas } from "@/data/products";
 
@@ -46,7 +46,7 @@ function getDivisionSoftGlow(area) {
   return divisionSoftGlow[area] || "rgba(255,255,255,0.04)";
 }
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams();
   const familyFromUrl = searchParams.get("family");
 
@@ -1176,5 +1176,29 @@ export default function ProductsPage() {
         }
       `}</style>
     </main>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense
+      fallback={
+        <main
+          style={{
+            minHeight: "100vh",
+            background: "#050505",
+            color: "#ffffff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 14,
+          }}
+        >
+          Loading catalogue...
+        </main>
+      }
+    >
+      <ProductsContent />
+    </Suspense>
   );
 }
